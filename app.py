@@ -24,7 +24,6 @@ def home():
     return render_template('home.html',
             dirlinks=DIRLINKS, active_page='Home')
 
-
 @app.route('/blog')
 def blog():
     if str(get_locale()) == 'ko':
@@ -32,6 +31,12 @@ def blog():
     else:
         return redirect('http://blog.popong.com/en')
 
+@app.route('/developers')
+def developers():
+    if str(get_locale()) == 'ko':
+        return redirect('http://developers.popong.com')
+    else:
+        return redirect('http://en.developers.popong.com')
 
 @app.route('/about')
 def about():
@@ -39,20 +44,34 @@ def about():
             dirlinks=DIRLINKS, active_page='About',
             YB=members.YB, OB=members.OB, THANKS_TO=members.THANKS_TO)
 
+@app.route('/projects')
+def projects():
+    return render_template('projects.html')
+
+@app.route('/participate')
+def participate():
+    return render_template('participate.html')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
+
 
 @app.route('/sources')
 def sources():
     return render_template('sources.html')
 
-
 @app.route('/glossary')
 def glossary():
     return render_template('glossary.html', terms=terms)
 
-
 @app.route('/error')
 def error():
     return render_template('404.html')
+
+@app.route('/googlef6e4487896615e46.html')
+def google_webmaster_tools():
+    return render_template('googlef6e4487896615e46.html')
 
 
 @app.context_processor
@@ -60,6 +79,9 @@ def inject_menus():
     return dict(menus=[
             ('Home', url_for('home')),
             ('Blog', url_for('blog')),
+            ('Projects', url_for('projects')),
+            ('Developers', url_for('developers')),
+            ('Participate', url_for('participate')),
             ('About', url_for('about'))
         ])
 
